@@ -136,6 +136,7 @@ const MIPSI_OP_MNEMONIC: [Option<&str>; 64] = [
     None,
 ];
 
+#[derive(Debug)]
 pub enum MipsIInstr<'a> {
     Immediate {
         mnemonic: &'a str,
