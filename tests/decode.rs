@@ -1,8 +1,13 @@
-use parsmips::Decode;
+use parsmips::{Decode, Immediate, MipsI};
 
 #[test]
 fn api_works() {
-    let word: u32 = 0x3c080013;
-
-    let _instr = word.decode();
+    assert_eq!(
+        0x3c080013.decode(),
+        Ok(MipsI::Lui(Immediate {
+            rs: 0,
+            rt: 8,
+            immediate: 0x13
+        }))
+    );
 }
