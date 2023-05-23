@@ -103,14 +103,14 @@ impl Decode<MipsI> for u32 {
     type Error = DecodeError;
 
     fn decode(&self) -> Result<MipsI, Self::Error> {
-        let op: u8 = (self >> 26).try_into().unwrap();
-        let rs: u8 = ((self >> 21) & 0x0000001f).try_into().unwrap();
-        let rt: u8 = ((self >> 16) & 0x0000001f).try_into().unwrap();
-        let rd: u8 = ((self >> 11) & 0x0000001f).try_into().unwrap();
-        let sa: u8 = ((self >> 6) & 0x0000001f).try_into().unwrap();
-        let funct: u8 = (self & 0x0000003f).try_into().unwrap();
-        let immediate: u16 = (self & 0x0000ffff).try_into().unwrap();
-        let target: u32 = self & 0x03ffffff;
+        let op = (self >> 26) as u8;
+        let rs = ((self >> 21) & 0x0000001f) as u8;
+        let rt = ((self >> 16) & 0x0000001f) as u8;
+        let rd = ((self >> 11) & 0x0000001f) as u8;
+        let sa = ((self >> 6) & 0x0000001f) as u8;
+        let funct = (self & 0x0000003f) as u8;
+        let immediate = (self & 0x0000ffff) as u16;
+        let target = self & 0x03ffffff;
 
         match (op, rs, rd, rt, funct) {
             (0x00, _, _, _, 0x00) => Ok(MipsI::Sll(Register { rs, rt, rd, sa })),
